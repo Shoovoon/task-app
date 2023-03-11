@@ -55,6 +55,7 @@ class FriendController extends Controller
     {
         $friend->update([
             'friends_name' => $request->friends_name,
+            'junior_friends_name' => $request->junior_friends_name,
         ]);
         return redirect()->route('friends.index')->withMessage('Task was successful!');
     }
@@ -65,4 +66,13 @@ class FriendController extends Controller
         return redirect()->route('friends.index')->withMessage('Successfully Deleted!');
     }
 
+    public function downloadPdf(Friend $friend)
+    {
+        $preview = view('friends.pdf', [
+            'friend' => $friend
+        ]);
+        $mpdf = new \Mpdf\Mpdf(['format' => 'A4-L']);
+        $mpdf->WriteHTML($preview);
+        $mpdf->Output(time() . "test PDF.pdf", "I");
+    }
 }

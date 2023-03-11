@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 // Route::post('/store', [FriendController::class, 'store'])->name('friends.store');
 
 Route::resource('/friends', FriendController::class);
+Route::get('/friend/{friend}/pdf', [FriendController::class, 'downloadPdf'])->name('friend.pdf');
 
 Route::get('/clear', function() {
 
